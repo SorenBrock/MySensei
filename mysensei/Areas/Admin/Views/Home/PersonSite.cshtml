@@ -1,0 +1,206 @@
+﻿@if (!User.Identity.IsAuthenticated) { Response.Redirect("/Admin/Home/UserLogin"); }
+@using mysensei.Models
+@model mysensei.Models.Person
+@{
+    ViewBag.Title = "Person";
+}
+<article class="personSite">
+<section class="personHeadline">
+    <img class="userPic" src="~/Images/Persons/@ImageHelper.GetImageUrl("Persons", Model.Image, "person.png")" alt="placeholder"/>
+    <h1 class="personName">
+        @string.Format("{0} {1}", Model.FirstName, Model.LastName)
+    </h1>
+</section>
+<div class="tabsContainer">
+    <div class="btn profileTab tabActive" data-modal="modal-general">Generelt</div>
+    <div class="btn profileTab" data-modal="modal-courses">Kurser</div>
+    <div class="btn profileTab" data-modal="modal-emails">Beskeder</div>
+</div>
+<section class="tabContent">
+@using (Html.BeginForm("PersonSite", "Home", FormMethod.Post, new {@class = ""}))
+{
+    <div class="modal open tab" id="modal-general">
+        @if (ViewBag.edit == true)
+        {
+            <div>
+                <table class="personInfo">
+                    <tbody class="personInfo">
+                    <tr>
+                        <td class="personMeta"> Fornavn:</td>
+                        <td class="personValue">@Html.TextBoxFor(x => x.FirstName, new {@class = "editPerson"})</td>
+                    </tr>
+                    <tr>
+                        <td class="personMeta"> Efternavn:</td>
+                        <td class="personValue">@Html.TextBoxFor(x => x.LastName, new {@class = "editPerson"})</td>
+                    </tr>
+                    <tr>
+                        <td class="personMeta"> Adresse:</td>
+                        <td class="personValue">@Html.TextBoxFor(x => x.Address, new {@class = "editPerson"})</td>
+                    </tr>
+                    <tr>
+                        <td class="personMeta"> Postnr:</td>
+                        <td class="personValue">@Html.TextBoxFor(x => x.Zipcode, new {@class = "editPerson", @type = "number" })</td>
+                        <td class="personValue">@Html.ValidationMessageFor(x => x.Zipcode)</td>
+                    </tr>
+                    <tr>
+                        <td class="personMeta"> Email:</td>
+                        <td class="personValue">@Html.TextBoxFor(x => x.Email, new {@class = "editPerson"})</td>
+                        <td class="personValue">@Html.ValidationMessageFor(x => x.Email)</td>
+                    </tr>
+                    <tr>
+                        <td class="personMeta"> Tlf:</td>
+                        <td class="personValue">@Html.TextBoxFor(x => x.Phone, new {@class = "editPerson"})</td>
+                    </tr>
+
+                    <tr>
+                        <td class="personMeta"> Brugernavn:</td>
+                        <td class="personValue">@Html.TextBoxFor(x => x.Username, new {@class = "editPerson"})</td>
+                        <td class="personValue">@Html.ValidationMessageFor(x => x.Username)</td>
+                    </tr>
+                    <tr>
+                        <td class="personMeta"> Kodeord:</td>
+                        <td class="personValue">@Html.TextBoxFor(x => x.Password, new {@class = "editPerson"})</td>
+                        <td class="personValue">@Html.ValidationMessageFor(x => x.Password)</td>
+                    </tr>
+                    <tr>
+                        <td class="personMeta"> Status:</td>
+                        <td class="personValue">@Html.RadioButtonFor(model => model.Active, true, Model.Active ? new {@checked = "checked"} : null)Aktiv @Html.RadioButtonFor(model => model.Active, false, !Model.Active ? new {@checked = "checked"} : null)Deaktiveret</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <button class="btn personSubmit" type="submit" name="command" value="cancel">Annuller</button>
+                <button class="btn personSubmit" type="submit" name="command" value="save">Gem</button>
+            </div>
+        }
+        else
+        {
+            <div class="personInfo">
+                <table class="personInfo">
+                    <tbody class="personInfo">
+                    <tr>
+                        <td class="personMeta"> Fornavn:</td>
+                        <td class="personValue"> @Html.DisplayFor(x => x.FirstName)</td>
+                    </tr>
+                    <tr>
+                        <td class="personMeta"> Efternavn:</td>
+                        <td class="personValue"> @Html.DisplayFor(x => x.LastName)</td>
+                    </tr>
+                    <tr>
+                        <td class="personMeta"> Adresse:</td>
+                        <td class="personValue"> @Html.DisplayFor(x => x.Address)</td>
+                    </tr>
+                    <tr>
+                        <td class="personMeta"> Postnr:</td>
+                        <td class="personValue"> @Html.DisplayFor(x => x.Zipcode)</td>
+                    </tr>
+                    <tr>
+                        <td class="personMeta"> Email:</td>
+                        <td class="personValue"> @Html.DisplayFor(x => x.Email)</td>
+                    </tr>
+                    <tr>
+                        <td class="personMeta"> Tlf:</td>
+                        <td class="personValue"> @Html.DisplayFor(x => x.Phone)</td>
+                    </tr>
+                    <tr>
+                        <td class="personMeta"> Brugernavn:</td>
+                        <td class="personValue"> @Html.DisplayFor(x => x.Username)</td>
+                    </tr>
+                    <tr>
+                        <td class="personMeta"> Kodeord:</td>
+                        <td class="personValue"> @Html.DisplayFor(x => x.Password)</td>
+                    </tr>
+                    <tr>
+                        <td class="personMeta"> Status:</td>
+                        <td class="personValue"> @(Model.Active ? "Aktiv" : "Deaktiveret")</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <br/>
+                <button class="btn personSubmit" type="submit" name="command" value="back">Tilbage</button>
+                <button class="btn personSubmit" type="submit" name="command" value="edit">Rediger</button>
+
+                <button class="btn personDelete" type="submit" name="command" value="delete" onclick=" return confirm('Er du sikker?'); ">Slet</button>
+            </div>
+        }
+    </div>
+    <div class="modal tab" id="modal-courses">
+        <h4>Kursus teacher <span class="counter">@Model.TeacherCourse.Count</span></h4>
+        <br/>
+        <table class="coursesTable ">
+            <thead>
+            <tr>
+                <th class="coursesHeadline">Kursus</th>
+                <th class="coursesHeadline">Tilmeldte</th>
+            </tr>
+            </thead>
+            @foreach (var teacherCourse in Model.TeacherCourse.ToList())
+            {
+                <tr class="coursesContent">
+                    <td><a href="@Url.Action("CourseSite", new {id = teacherCourse.Id})">@teacherCourse.Name</a></td>
+                    <td>@teacherCourse.Student.Count()</td>
+                </tr>
+            }
+        </table>
+        <h4>Kursus Student <span class="counter">@Model.StudentCourse.Count</span></h4>
+        <br/>
+        <table class="coursesTable">
+            <thead>
+            <tr>
+                <th class="coursesHeadline">Kursus</th>
+                <th class="coursesHeadline">Tilmeldte</th>
+            </tr>
+            </thead>
+            @foreach (var studentCourse in Model.StudentCourse.ToList())
+            {
+                <tr class="coursesContent">
+                    <td>@Html.ActionLink(studentCourse.Name, "CourseSite", new {id = studentCourse.Id})</td>
+                    <td>@studentCourse.Student.Count()</td>
+                </tr>
+            }
+        </table>
+        <br/>
+    </div>
+    <div class="modal tab" id="modal-emails">
+        <h4>Beskeder</h4>
+        <div class="messages">
+            <div class="messageContainer">
+                <table class="messageList">
+                    <tbody>
+                    @foreach (var chatroom in Model.ChatRoom.OrderBy(x => x.Course.Name))
+                    {
+                        var person = chatroom.Person.FirstOrDefault(x => x.Id != Model.Id);
+                        var sensei = person.TeacherCourse.FirstOrDefault() != null ? "(Teacher)" : "";
+                        <tr class="chatroom messageItem" data-modal="modal-@chatroom.Id">
+                            <td>
+                                <img class="userThumb" src="~/Images/Persons/@ImageHelper.GetImageUrl("Persons", person.Image, "person.png")" alt="placeholder" />
+                            </td>
+                            <td class="messageSender">@string.Format("{0} {1} {2}", person.FirstName, person.LastName, sensei) <br/><span class="courseName">@chatroom.Course.Name</span></td>
+                        </tr>
+                    }   
+                    </tbody>
+                </table>
+            </div>
+            <div class="messageThread">
+                @foreach (var chatroom in Model.ChatRoom.OrderBy(x => x.Course.Name))
+                {<div class="modal chat" id="modal-@chatroom.Id">
+                     @foreach (var chat in chatroom.Chat.ToList().OrderBy(x => x.DateCreated))
+                     {
+                         <div class="messageContent@(chat.PersonId != Model.Id ? " senderContainer" : "")">
+                             <p class="messageName">@string.Format("{0} {1} ", chat.Person.FirstName, chat.Person.LastName)</p>
+                             <p class="message@(chat.PersonId != Model.Id ? " sender" : "")">
+                                 @chat.Message
+                             </p>
+                             <p class="messageDate">
+                                 @chat.DateCreated
+                             </p>
+                         </div>
+                     }
+                 </div>
+                }
+
+            </div>
+        </div>
+    </div>
+}
+</section>
+</article>

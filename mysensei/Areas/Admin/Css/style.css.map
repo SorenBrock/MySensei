@@ -1,0 +1,13 @@
+{
+  "version": 3,
+  "file": "style.css",
+  "sources": [
+    "style.scss",
+    "imports/_functions.scss",
+    "imports/_mixins.scss",
+    "imports/_variables.scss"
+  ],
+  "sourcesContent": [],
+  "mappings": "AAAA,OAAO,CAAC,cAAW",
+  "names": []
+}

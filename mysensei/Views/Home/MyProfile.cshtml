@@ -1,0 +1,157 @@
+﻿@if (!User.Identity.IsAuthenticated) { Response.Redirect("/Home"); }
+@model mysensei.Models.ViewModels.ViewModelProfileSite
+
+@{
+    ViewBag.Title = "MyProfile";
+    var isLoggedIn = User.Identity.IsAuthenticated;
+}
+@using (Html.BeginForm("MyProfileSendMessage", "Home", FormMethod.Post))
+{@Html.HiddenFor(x => x.Person.Id)
+    <section class="gridRow discover myProfile">
+        <ul class="gridCol-12">
+            <li class="btnMenu " data-modal="modal-generel" href="">Profil</li>
+            <li class="btnMenu @(Model.MsgChatRoomId==0?" btnActive": "")" data-modal="modal-course" href="">Kurser</li>
+            <li class="btnMenu  @(Model.MsgChatRoomId!=0?" btnActive": "")" data-modal="modal-chatmail" href="">Beskeder</li>
+        </ul>
+        <div class="gridRow courses courseHide info" id="modal-generel">
+            <img class="userThumb" src="~/Images/Persons/@ImageHelper.GetImageUrl("Persons", Model.Person.Image, "person.png")" alt="placeholder" />
+            <div class="personDescriptionContainer">
+                <div class="personDescription">
+                    <p class="personMeta">Fornavn</p>
+                    <p class="personValue">@Html.DisplayFor(x => x.Person.FirstName, new { @class = "" })</p>
+                </div>
+
+                <div class="personDescription">
+                    <p class="personMeta">Efternavn</p>
+                    <p class="personValue">@Html.DisplayFor(x => x.Person.LastName, new { @class = "" })</p>
+                </div>
+
+                <div class="personDescription">
+                    <p class="personMeta">Adressse</p>
+                    <p class="personValue">@Html.DisplayFor(x => x.Person.Address, new { @class = "" })</p>
+                </div>
+
+                <div class="personDescription">
+                    <p class="personMeta">Postnr</p>
+                    <p class="personValue">@Html.DisplayFor(x => x.Person.Zipcode, new { @class = "" })</p>
+                </div>
+
+                <div class="personDescription">
+                    <p class="personMeta">By</p>
+                    <p class="personValue">@Html.DisplayFor(x => x.Person.LocationCity.City, new { @class = "" })</p>
+                </div>
+
+                <div class="personDescription">
+                    <p class="personMeta">Telefon</p>
+                    <p class="personValue">@Html.DisplayFor(x => x.Person.Phone, new { @class = "" })</p>
+                </div>
+
+                <div class="personDescription">
+                    <p class="personMeta">Email</p>
+                    <p class="personValue">@Html.DisplayFor(x => x.Person.Email, new { @class = "" })</p>
+                </div>
+                <div class="personDescription">
+                    <p class="personMeta">Brugernavn</p>
+                    <p class="personValue">@Html.DisplayFor(x => x.Person.Username, new { @class = "" })</p>
+                </div>
+            </div>
+            @*<button class="userSubmit" type="button">Rediger</button>*@
+            
+            <a class="userSubmit" href="@Url.Action("CreateCourse")">Opret kursus</a>
+            <a class="userSubmit" href="/Home/Logout">Log ud</a>
+
+        </div>
+        <div class="gridRow courses @(Model.MsgChatRoomId!=0?" courseHide": "")" id="modal-course">
+            @if (Model.IsTeacher)
+            {
+                <h1>Sensei kurser <span class="counter">@Model.ListTeacherCourses.Count()</span></h1>
+
+                <table class="coursesTable leftArranged ">
+                    <thead>
+                        <tr>
+                            <th class="coursesHeadline">Kursus</th>
+                            <th class="coursesHeadline">Tilmeldte</th>
+                        </tr>
+                    </thead>
+                    @foreach (var teacherCourse in Model.ListTeacherCourses.ToList())
+                    {
+                        <tr class="coursesContent">
+                            <td><a href="@Url.Action("Course", new {id = teacherCourse.Id})">@teacherCourse.Name</a></td>
+                            <td>@teacherCourse.Student.Count()</td>
+                        </tr>
+                    }
+                </table>
+            }
+            @if (Model.IsStudent)
+            {
+                <h1>Tilmeldte kurser <span class="counter">@Model.ListStudentCourses.Count()</span></h1>
+                <table class="coursesTable">
+                    <thead>
+                        <tr>
+                            <th class="coursesHeadline">Kursus</th>
+
+                        </tr>
+                    </thead>
+                    @foreach (var studentCourse in Model.ListStudentCourses.ToList())
+                    {
+                        <tr class="coursesContent">
+                            <td>@Html.ActionLink(studentCourse.Name, "Course", new { id = studentCourse.Id })</td>
+
+                        </tr>
+                    }
+
+                </table>
+            }
+            @if (!Model.IsStudent && !Model.IsTeacher)
+            {
+                <h1>Du har ikke oprettet eller tilmeldt dig nogle kurser endnu...</h1>
+            }
+        </div>
+        <div class="gridRow courses @(Model.MsgChatRoomId == 0 ? " courseHide" : "")" id="modal-chatmail">
+            <button class="btnChatroomAll userSubmit" type="button">Vis alle</button>
+            <div class="messageList">
+                @foreach (var chatroom in Model.ListChatRooms)
+                {
+                    var person = chatroom.Person.FirstOrDefault(x => x.Id != Model.Person.Id);
+                    var sensei = person.TeacherCourse.FirstOrDefault() != null ? "(Sensei)" : "";
+                    <div class="chatroom messageItem" id="chatroomselect-@chatroom.Id" data-modal="chatroom-@chatroom.Id">
+                        <img class="userThumb" src="~/Images/Persons/@ImageHelper.GetImageUrl("Persons", person.Image, "person.png")" alt="placeholder" />
+                        <div class="messageMeta">
+                            <p class="messageSenderName">@($"{person.FirstName} {person.LastName} {sensei}")</p>
+                            <p class="courseName">@chatroom.Course.Name</p>
+                            <p class="lastMessage">Sidste svar: @chatroom.Chat.Where(y => y.PersonId != Model.Person.Id).OrderByDescending(x => x.DateCreated).First().DateCreated</p>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="messageThread">
+                @foreach (var chatroom in Model.ListChatRooms)
+                {
+                    <div class="chat" id="chatroom-@chatroom.Id">
+                        @foreach (var chat in chatroom.Chat.ToList().OrderBy(x => x.DateCreated))
+                        {
+                            <div class="messageContent@(chat.PersonId != Model.Person.Id ? " senderContainer" : "")">
+                                <p class="messageName">@string.Format("{0} {1} ", chat.Person.FirstName, chat.Person.LastName)</p>
+                                <p class="message@(chat.PersonId != Model.Person.Id ? " sender" : "")">
+                                    @chat.Message
+                                </p>
+                                <p class="messageDate">
+                                    @chat.DateCreated
+                                </p>
+                            </div>
+                        }
+                    </div>
+                }
+
+            </div>
+
+            <div class="messageSender">
+                @Html.HiddenFor(x => x.MsgChatRoomId)
+                @Html.TextAreaFor(x => x.MsgMessage, new { @class = "messagebox", placeholder = "Skriv en besked..." })
+                <button class=userSubmit type="submit" name="cmd" value="send">Send</button>
+
+            </div>
+
+        </div>
+    </section>
+}

@@ -1,0 +1,135 @@
+﻿@if (!User.Identity.IsAuthenticated) { Response.Redirect("/Admin/Home/UserLogin"); }
+@using mysensei.Models
+@model mysensei.Models.Course
+@{
+    ViewBag.Title = "Kursus";
+}
+<article class="courseSite">
+    @using (Html.BeginForm("CourseSite", "Home", FormMethod.Post, new { @class = "form-horizontal" }))
+    {
+        <section class="tag">
+            <div class="tagHeadline">
+                <i class="fa fa-graduation-cap bigIcon"></i>
+                <h4>
+                    @Model.Name
+                </h4>
+            </div>
+            @if (ViewBag.edit == true)
+            {
+                <div class="editTag">
+                    <table class="personInfo">
+                        <tbody class="personInfo">
+                            <tr>
+                                <td class="personMeta">Oprettet af:</td>
+                                <td>@Html.ActionLink(string.Format("{0} {1}", Model.Teacher.FirstName, Model.Teacher.LastName), "PersonSite", new { id = Model.Teacher.Id })</td>
+                            </tr>
+                            <tr>
+                                <td class="personMeta">Oprettet:</td>
+                                <td>
+                                    @Html.DisplayFor(x => x.DateCreated, new { @class = "editPerson" })
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="personMeta">Titel:</td>
+                                <td>@Html.TextBoxFor(x => x.Name, new { @class = "editPerson" })</td>
+                            </tr>
+                            <tr>
+                                <td class="personMeta">Beskrivelse:</td>
+                                <td>@Html.TextAreaFor(x => x.Description, new { @class = "editDescription" })</td>
+                            </tr>
+                            <tr>
+                                <td class="personMeta">Status:</td>
+                                <td>
+                                    @Html.RadioButtonFor(model => model.Active, true, Model.Active ? new { @checked = "checked" } : null)Aktiv
+                                    @Html.RadioButtonFor(model => model.Active, false, !Model.Active ? new { @checked = "checked" } : null)Deaktiveret
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button class="btn submitTag" type="submit" name="command" value="cancel">Annuller</button>
+                    <button class="btn submitTag" type="submit" name="command" value="save">Gem</button>
+                </div>
+            }
+            else
+            {
+                <div class="editTag">
+                    <table class="personInfo">
+                        <tbody class="personInfo">
+                            <tr>
+                                <td class="personMeta">Oprettet af:</td>
+                                <td>Oprettet af: @Html.ActionLink(string.Format("{0} {1}", Model.Teacher.FirstName, Model.Teacher.LastName), "PersonSite", new { id = Model.Teacher.Id })</td>
+                            </tr>
+                            <tr>
+                                <td class="personMeta">Oprettet:</td>
+                                <td>@Html.DisplayFor(x => x.DateCreated, new { @class = "" })</td>
+                            </tr>
+                            <tr>
+                                <td class="personMeta">Titel:</td>
+                                <td>@Html.DisplayFor(x => x.Name, new { @class = "" })</td>
+                            </tr>
+                            <tr>
+                                <td class="personMeta">Beskrivelse:</td>
+                                <td>@Html.DisplayFor(x => x.Description, new { @class = "" })</td>
+                            </tr>
+                            <tr>
+                                <td class="personMeta">Status:</td>
+                                <td>@(Model.Active ? "Aktiv" : "Deaktiveret")</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button class="btn submitTag" type="submit" name="command" value="back">Tilbage</button>
+                    <button class="btn submitTag" type="submit" name="command" value="edit">Rediger</button>
+                    <button class="btn submitTag" type="submit" name="command" value="delete" onclick=" return confirm('Er du sikker?'); ">Slet</button>
+                </div>
+            }
+        </section>
+        <section class="coursesOverview">
+            <h4>Tilmeldte <span class="counter">@Model.Student.Count</span></h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th class="coursesHeadline">Tilmeldte</th>
+                        <th class="coursesHeadline">Rating</th>
+                        <th class="coursesHeadline"></th>
+                    </tr>
+                </thead>
+                @foreach (var person in Model.Student.ToList())
+                {
+
+                    <tr class="categoryTable">
+                        <td>@Html.ActionLink(string.Format("{0} {1}", person.FirstName, person.LastName), "PersonSite", new { id = person.Id })</td>
+                        <td>
+                            @{
+                                var firstOrDefault = person.Rating.FirstOrDefault(x => x.CourseId == Model.Id);
+                            }
+                            @if (firstOrDefault != null)
+                            {
+                                @firstOrDefault.Stars
+                            }
+                        </td>
+                        <td>@Html.ActionLink("fjern", "RemoveStudentFromCourse", new { courseId = Model.Id, personId = person.Id }, new { @class = "btn submitTag" })</td>
+                    </tr>
+                                }
+            </table>
+        </section>
+        <section class="coursesOverview">
+            <h4>Tags <span class="counter">@Model.Tag.Count</span></h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th class="coursesHeadline">Tags</th>
+                        <th class="coursesHeadline"></th>
+                    </tr>
+                </thead>
+                @foreach (var tag in Model.Tag.ToList())
+                {
+                    <tr class="categoryTable">
+                        <td>@tag.Name</td>
+                        <td>@Html.ActionLink("fjern", "RemoveTagFromCourse", new { courseId = Model.Id, tagId = tag.Id, @class = "btn submitTag" }, new { @class = "btn submitTag" })</td>
+                    </tr>
+                }
+            </table>
+        </section>
+
+                                }
+</article>

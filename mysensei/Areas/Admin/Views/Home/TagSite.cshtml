@@ -1,0 +1,98 @@
+﻿@if (!User.Identity.IsAuthenticated) { Response.Redirect("/Admin/Home/UserLogin"); }
+@model mysensei.Areas.Admin.Models.ViewModels.TagViewModel
+@{
+    ViewBag.Title = "Tag";
+}
+<article class="tagSite">
+    @using (Html.BeginForm("TagSite", "Home", FormMethod.Post, new { @class = "form-horizontal" }))
+    {
+        @Html.HiddenFor(x => x.TagModel.Id)
+        <section class="tag">
+            <div class="tagHeadline">
+                <i class="fa fa-tag bigIcon"></i>
+                <h4>@Model.TagModel.Name</h4>
+            </div>
+
+
+            @if (ViewBag.edit == true)
+            {
+
+                <div class="editTag">
+                    <table class="personInfo">
+                        <tbody class="personInfo">
+                            <tr>
+                                <td class="personMeta">
+                                    Tag navn:
+                                </td>
+                                <td>@Html.TextBoxFor(x => x.TagModel.Name, new { @class = "editPerson" })</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <button class="btn submitTag" type="submit" name="command" value="cancel">Annuller</button>
+                    <button class="btn submitTag" type="submit" name="command" value="save">Gem</button>
+                </div>
+            }
+            else
+            {
+                <div class="editTag">
+                    <table class="personInfo">
+                        <tbody class="personInfo">
+                            <tr>
+                                <td class="personMeta">
+                                    Tag navn:
+                                </td>
+                                <td>@Html.DisplayFor(x => x.TagModel.Name, new { @class = "" })</td>
+                            </tr>
+                            <tr>
+                                <td class="personMeta category">
+                                    Katgorier:
+                                </td>
+                                <td>
+                                    @foreach (var tagGroup in Model.TagModel.TagGroup.ToList())
+                    {
+                                        <span class="categories">@tagGroup.Name</span>
+                                    }
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button class="btn submitTag" type="submit" name="command" value="back">Tilbage</button>
+                    <button class="btn submitTag" type="submit" name="command" value="edit">Rediger</button>
+                    <button class="btn submitTag" type="submit" name="command" value="delete" onclick=" return confirm('Er du sikker?'); ">Slet</button>
+                </div>
+            }
+        </section>
+        <section class="addTag">
+
+            <h4>Tag kategorier</h4>
+            <p>Tilføj eller fjern kategorier for det gældende tag.</p>
+            <table class="categoryTable">
+                @foreach (var tagGroup in Model.TagModel.TagGroup.ToList())
+                {
+                    <tr>
+                        <td><span class="categories">@tagGroup.Name</span></td>
+                        <td>@Html.ActionLink("Fjern", "RemoveTagGroupFromtag", new { tagId = Model.TagModel.Id, tagGroupId = tagGroup.Id }, new { @class = "btn submitTag" })</td>
+                    </tr>
+                }
+                <tr>
+                    <td colspan="2"><hr /></td>
+                </tr>
+                @foreach (var tagGroup in Model.TagGroupToAdd.ToList())
+                {
+
+                    <tr>
+                        <td><span class="categories">@tagGroup.Name</span></td>
+                        <td>
+                            @Html.ActionLink("Tilføj", "AddTagGroupToTag", new {tagId = Model.TagModel.Id, tagGroupId = tagGroup.Id}, new { @class = "btn submitTag" })
+                        </td>
+                    </tr>
+                }
+
+            </table>
+
+        </section>
+    }
+
+</article>

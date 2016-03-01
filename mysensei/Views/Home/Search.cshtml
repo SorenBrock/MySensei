@@ -1,0 +1,74 @@
+﻿@model mysensei.Models.ViewModels.ViewModelSearch
+@{
+    ViewBag.Title = "Search";
+    var isLoggedIn = User.Identity.IsAuthenticated;
+}
+<section class="gridRow search">
+    @using (Html.BeginForm("Search", "Home", FormMethod.Post))
+    {
+        <div class="searchBar">
+            @Html.DropDownList("LocationGroupId", new SelectList(Model.ListLocationGroups,
+                "Id", "Name", Model.LocationGroupId), new { @class = "select", @onchange = "$('#searchButton').prop('disabled',$('#SearchField').val().length === 0)" })
+            @Html.TextBoxFor(model => model.SearchField, new { @placeholder = "Søg...", onkeyup = "$('#searchButton').prop('disabled',($('#SearchField').val().length === 0));" })
+            <button class="btn SubmitSearch" disabled="disabled" id="searchButton" type="submit" name="cmd" value="Search"><i class="fa fa-search"></i></button>
+        </div>
+        if (!Model.Root)
+        {
+            if (Model.RecordCount != 0)
+            {
+                <div class="tagGroup tagOverview">
+                    <h1>Tags</h1>
+                    @foreach (var tag in Model.ListTags)
+                        {
+                        <p class="tagName">
+                            @Html.ActionLink(string.Format("{0} ", tag.Name), "SearchByTagId", new { tagId = tag.Id })
+                        </p>
+                    }
+                </div>
+                <h1>Kurser <span class="counter">@Model.RecordCount</span></h1>
+                <div class="gridRow courses">
+                    @foreach (var course in Model.ListCourses.ToList())
+                        {
+                        @Html.Partial("PartialViews/_Course", course)
+                    }
+                </div>
+            }
+            else
+            {
+                <h3>Det var desværre ikke muligt at finde matchende søgeresultater...</h3>
+            }
+        }
+        else // Model.Root
+        {
+
+            foreach (var listTagGroups in Model.ListTagGroups)
+            {
+                var countTagWithCourses = listTagGroups.Tag.Count(x => x.Course.Count != 0);
+                <div class="tagGroup">
+                    <h5>@listTagGroups.Name</h5>
+                    @{
+                        var i = 0;
+                        foreach (var tag in listTagGroups.Tag.ToList())
+                        {
+                            i++;
+                            if (tag.Course.Count != 0 || (tag.Course.Count == 0 && i <= 3 - countTagWithCourses))
+                            {
+                                <p class="tagName">
+                                    @Html.ActionLink(string.Format("{0} ", tag.Name), "SearchByTagId", new { tagId = tag.Id })
+                                </p>
+                            }
+                        }
+                    }
+                </div>
+                            }
+                        }
+                        if (Model.PageAll > 1)
+                        {
+                            <div class="pageNav">
+                                <button type="submit" name="cmd" value="Previous"><i class="fa fa-angle-left"></i></button>
+                                <p>Side @Model.PageThis ud af @Model.PageAll</p>
+                                <button type="submit" name="cmd" value="Next"><i class="fa fa-angle-right"></i></button>
+                            </div>
+                            }
+                        }
+</section>

@@ -1,0 +1,57 @@
+﻿@if (!User.Identity.IsAuthenticated) { Response.Redirect("/Admin/Home/UserLogin"); }
+@model mysensei.Areas.Admin.Models.ViewModels.ShowList<mysensei.Models.Person>
+@{
+    ViewBag.Title = "Person Oversigt";
+}
+
+@using (Html.BeginForm("PersonList", "Home", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    <article class="personlist">
+        <div class="TopBar">
+            @Html.TextBoxFor(model => model.SearchField, new { @class = "search", @placeholder = "Søg..." })
+            <button class="btn SubmitSearch" type="submit" name="cmd" value="Search"><i class="fa fa-search"></i></button>
+            <p>Resultater pr. side:</p>
+            @Html.DropDownList("Take", Model.TakeList as SelectList, new { @class = "select", @onchange = "this.form.submit()" })
+
+            <div class="TopBarNav">
+                <button type="submit" name="cmd" value="Previous"><i class="fa fa-angle-left"></i></button>
+                <p>Side @Model.PageThis ud af @Model.PageAll</p>
+                <button type="submit" name="cmd" value="Next"><i class="fa fa-angle-right"></i></button>
+            </div>
+            <h6 class="numberOfUsers">Antal brugere i alt: @Model.RecordCount</h6>
+        </div>
+        <table>
+            <thead>
+                <tr class="tableHeadline">
+                    <th></th>
+                    <th>Navn</th>
+                    <th>Sensei</th>
+                    <th>Student</th>
+                    <th>Brugernavn</th>
+                    <th>Email</th>
+                    <th>Postnr</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody class="personContent">
+                @foreach (var person in Model.ListGeneric)
+                {
+                    <tr class="personField" onclick="location.href = '@(Url.Action("PersonSite", "Home", new  {id=person.Id } ))'">
+                        <td>
+                            <a href="@Url.Action("PersonSite", "Home", new {id = person.Id})">
+                                <img class="userThumb" src="~/Images/Persons/@ImageHelper.GetImageUrl("Persons",person.Image,"person.png")" alt="placeholder" />
+                            </a>
+                        </td>
+                        <td>@person.FirstName  @person.LastName</td>
+                        <td>@(person.TeacherCourse.FirstOrDefault() != null ? "Sensei" : "")</td>
+                        <td>@(person.StudentCourse.FirstOrDefault() != null ? "Student" : "")</td>
+                        <td>@person.Username</td>
+                        <td>@person.Email</td>
+                        <td>@person.Zipcode</td>
+                        <td>@(person.Active ? "active" : "deactivated")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </article>
+}

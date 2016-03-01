@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <link href="~/Areas/Admin/Css/style.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/Css/fonts/fontawesome/css/font-awesome.min.css" rel="stylesheet" />
+</head>
+<body>
+    <header>
+        <a href="@Url.Action("Index", new { Controller = "Home" })">
+            <img class="backend_logo" src="~/Images/Backend/logo_i_vector_hvid.png" alt="MySensei logo" />
+        </a>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <a class="btn Logout" href="@Url.Action("UserLogout", new { Controller = "/Home" })">Logout</a> }
+    </header>
+    <nav>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <ul>
+                <li><img class="admin_picture" src="http://placehold.it/60x60" alt="profilbillede" /></li>
+                <li class="btnMenu"><a class="btnMenu" href="@Url.Action("PersonList", new { cmd = "root" })"><i class="fa fa-user"></i><br />Brugere</a></li>
+                <li class="btnMenu"><a class="btnMenu" href="@Url.Action("CourseList", new { cmd = "root" })"><i class="fa fa-graduation-cap"></i><br />Kurser</a></li>
+                <li class="btnMenu"><a class="btnMenu" href="@Url.Action("TagList", new { cmd = "root"})"><i class="fa fa-tag"></i><br />Tag</a></li>
+                <li class="btnMenu"><a class="btnMenu" href="@Url.Action("LocationGroupList", new { Controller = "Home" })"><i class="fa fa-map-marker"></i><br />Postnr.</a></li>
+            </ul>}
+    </nav>
+    <div class="container">
+        @RenderBody()
+    </div>
+    <script src="~/Scripts/jquery-2.1.4.js"></script>
+    <script src="~/Areas/Admin/js/script.js"></script>
+</body>
+</html>

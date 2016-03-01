@@ -1,0 +1,8 @@
+$column-max: 12;
+
+$platforms: (
+  (phone),
+     (tablet, 600px, nowrap,100%),
+  (miditablet, 800px, nowrap,800px),
+  (desktop, 1024px, wrap, 1024px)
+) ;

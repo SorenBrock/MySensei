@@ -1,0 +1,40 @@
+﻿@if (!User.Identity.IsAuthenticated) { Response.Redirect("/Admin/Home/UserLogin"); }
+@model mysensei.Areas.Admin.Models.ViewModels.ShowList<mysensei.Models.LocationGroup>
+@{
+    ViewBag.Title = "Postnr Oversigt";
+}
+@using (Html.BeginForm("LocationGroupList", "Home", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    <article class="personlist">
+        <div class="TopBar">
+            @Html.TextBoxFor(model => model.SearchField, new { @class = "search", @placeholder = "Søg..." })
+            <button class="btn SubmitSearch" type="submit" name="cmd" value="Search"><i class="fa fa-search"></i></button>
+            <p>Resultater pr. side:</p>
+            @Html.DropDownList("Take", Model.TakeList as SelectList, new { @class = "select", @onchange = "this.form.submit()" })
+            <button class="btn newTag" type="submit" name="cmd" value="Create">Nyt Post Skema</button>
+            <div class="TopBarNav">
+                <button type="submit" name="cmd" value="Previous"><i class="fa fa-angle-left"></i></button>
+                <p>Side @Model.PageThis ud af @Model.PageAll</p>
+                <button type="submit" name="cmd" value="Next"><i class="fa fa-angle-right"></i></button>
+            </div>
+            <h6 class="numberOfUsers">Antal skemaer i alt: @Model.RecordCount</h6>
+        </div>
+        <table>
+            <thead>
+                <tr class="tableHeadline">
+                    <th>Postnummer skema</th>
+                    <th>Til</th>
+                    <th>Fra</th>
+                </tr>
+            </thead>
+            @foreach (var locationGroup in Model.ListGeneric)
+            {
+                <tr class="personField" onclick="location.href = '@(Url.Action("LocationGroupSite", "Home", new  {id=locationGroup.Id } ))'">
+                    <td>@locationGroup.Name</td>
+                    <td>@locationGroup.ZipcodeStart</td>
+                    <td>@locationGroup.ZipcodeEnd</td>
+                </tr>
+            }
+        </table>
+    </article>
+}

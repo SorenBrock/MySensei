@@ -1,0 +1,93 @@
+﻿@{
+    Layout = null;
+    var isLoggedIn = User.Identity.IsAuthenticated;
+    string message = ViewBag.message;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>@ViewBag.Title</title>
+    <link href="~/Style/style.min.css" rel="stylesheet" />
+    <link href="~/Style/fonts/fontawesome/css/font-awesome.min.css" rel="stylesheet"/>
+    <link rel="apple-touch-icon" sizes="57x57" href="~/Images/Assets/Favicon/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="~/Images/Assets/Favicon/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="~/Images/Assets/Favicon/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="~/Images/Assets/Favicon/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="~/Images/Assets/Favicon/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="~/Images/Assets/Favicon/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="~/Images/Assets/Favicon/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="~/Images/Assets/Favicon/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="~/Images/Assets/Favicon/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="~/Images/Assets/Favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="~/Images/Assets/Favicon/favicon-96x96.png">
+    <link rel="manifest" href="~/Images/Assets/Favicon/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="~/Images/Assets/Favicon/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+</head>
+
+<body>
+    @*    @if (!User.Identity.IsAuthenticated)*@
+    <div class="desktopMenu">
+    <div class="logoContainer">
+        <a href="/Home/Logout"><img a class="logo" src="~/Images/Frontend/logo_i_vector_sort.png" alt="[logo]" /></a>
+    </div>
+    <nav class="nav">
+
+        <ul>
+            <li>
+                <a class="btnMenu" href="@Url.Action("Discover")"><i class="fa fa-globe"></i>Opdag</a>
+            </li>
+
+            <li>
+                <a class="btnMenu" href="@Url.Action("Search", new { cmd = "root" })"><i class="fa fa-search"></i>Søg</a>
+            </li>
+
+            <li>
+                <a class="btnMenu" href="@Url.Action("About")"><i class="fa fa-info-circle"></i>Om os</a>
+            </li>
+
+            @if (!isLoggedIn)
+            {
+                <li>
+                    <a class="btnMenu" href="@Url.Action("Login")"><i class="fa fa-sign-in"></i>Login</a>
+                </li>
+            }
+            else
+            {
+                <li>
+                    <a class="btnMenu" href="@Url.Action("MyProfile")"><i class="fa fa-user"></i>Min profil</a>
+                </li>
+            }
+
+
+        </ul>
+    </nav>
+    </div>
+    <article class="indexContainer">
+        <section class="gridRow pageBackground index">
+            @*<p>[@(isLoggedIn ? "Logged IN" : "Logged OUT")]</p>*@
+            <div class="gridCol-12">
+                @if (string.IsNullOrEmpty(message))
+                {
+                    <h1>Velkommen til MySensei</h1>
+                    <p class="gridCol-12">Cras mattis consectetur purus sit amet fermentum. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+                }
+                else
+                {
+                    <h1>@message</h1>
+                }
+            </div>
+        </section>
+    </article>
+<footer class="socialIcons slimIcons">
+    <a href="#"><i class="fa fa-facebook-square"></i></a>
+    <a href="#"><i class="fa fa-instagram"></i></a>
+    <a href="#"><i class="fa fa-google-plus-square"></i></a>
+    <a href="#"><i class="fa fa-twitter-square"></i></a>
+</footer>
+    <script src="~/Scripts/jquery-2.1.4.js"></script>
+</body>
+</html>

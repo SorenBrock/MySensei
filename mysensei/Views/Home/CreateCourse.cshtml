@@ -1,0 +1,22 @@
+﻿@model mysensei.Models.ViewModels.ViewModelCreateCourse
+
+@{
+    ViewBag.Title = "Opret kursus";
+}
+<section class="GridRow createCourse">
+    <h1>Opret Kursus</h1>
+    @using (Html.BeginForm("CreateCourse", "Home", FormMethod.Post))
+    {
+        @Html.HiddenFor(x => x.PersonId)
+        <i class="fa fa-graduation-cap bigIcon"></i><br />
+        <p><button class="userSubmit" type="button" onclick="alert('Kommer i version 2')">Upload billede</button></p>
+        <p>@Html.ValidationMessageFor(model => model.Name)</p>
+        @Html.TextBoxFor(x => x.Name, new { @class = "courseInput", placeholder = Html.Raw(Html.DisplayNameFor(x => x.Name)) })
+        <p>
+            @Html.ValidationMessageFor(model => model.Description)
+        </p>
+        <p>@Html.TextAreaFor(x => x.Description, new { @class = "courseInputDescription", placeholder = Html.Raw(Html.DisplayNameFor(x => x.Description)) })</p>
+        <p><button class="userSubmit" type="submit">Opret</button></p>
+
+    }
+</section>

@@ -1,0 +1,44 @@
+﻿@if (User.Identity.IsAuthenticated) { Response.Redirect("/Home"); }
+@model mysensei.Models.ViewModels.ViewModelProfile
+
+@{
+    ViewBag.Title = "CreateProfile";
+    var isLoggedIn = User.Identity.IsAuthenticated;
+}
+<section class="createProfile">
+    @using (Html.BeginForm("CreateProfile", "Home", FormMethod.Post))
+    {
+
+        <h1>Opret profil</h1>
+
+        <p class="error"> @TempData["Status"]</p>
+        @Html.ValidationMessageFor(model => model.FirstName)
+        @Html.TextBoxFor(x => x.FirstName, new { @class = "", placeholder = Html.DisplayNameFor(x => x.FirstName) })
+        @Html.ValidationMessageFor(model => model.LastName)
+        @Html.TextBoxFor(x => x.LastName, new { @class = "", placeholder = Html.DisplayNameFor(x => x.LastName) })
+        @Html.ValidationMessageFor(model => model.Address)
+        @Html.TextBoxFor(x => x.Address, new { @class = "", placeholder = Html.DisplayNameFor(x => x.Address) })
+        @Html.ValidationMessageFor(model => model.Zipcode)
+        @Html.TextBoxFor(x => x.Zipcode, new { @class = "", placeholder = Html.DisplayNameFor(x => x.Zipcode) })
+        //City laver jeg hvis der er tid => med Ajax -> så navnet dukker op, når man indtaster postnr
+        @*@Html.TextBoxFor(x => x.City, new { @class = "", disabled = "disabled", placeholder = Html.DisplayNameFor(x => x.City) })*@
+
+        @Html.TextBoxFor(x => x.Phone, new { @class = "", placeholder = Html.DisplayNameFor(x => x.Phone) })
+
+        @Html.ValidationMessageFor(model => model.Email)
+        @Html.TextBoxFor(x => x.Email, new { @class = "", placeholder = Html.DisplayNameFor(x => x.Email) })
+
+
+        @Html.ValidationMessageFor(model => model.Username)
+        @Html.TextBoxFor(x => x.Username, new { @class = "", placeholder = Html.DisplayNameFor(x => x.Username) })
+        @Html.ValidationMessageFor(model => model.NewPassword)
+        @Html.TextBoxFor(x => x.NewPassword, new { @class = "", placeholder = Html.DisplayNameFor(x => x.NewPassword) })
+        @Html.ValidationMessageFor(model => model.ConfirmPassword)
+        @Html.TextBoxFor(x => x.ConfirmPassword, new { @class = "", placeholder = Html.DisplayNameFor(x => x.ConfirmPassword) })
+
+        <div class="userSubmit"><button type="submit">Opret bruger</button></div>
+
+
+    }
+</section>
+

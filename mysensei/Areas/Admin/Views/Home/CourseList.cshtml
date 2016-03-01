@@ -1,0 +1,49 @@
+﻿@if (!User.Identity.IsAuthenticated) { Response.Redirect("/Admin/Home/UserLogin"); }
+@model mysensei.Areas.Admin.Models.ViewModels.ShowList<mysensei.Models.Course>
+@{
+    ViewBag.Title = "Kursus Oversigt";
+}
+@using (Html.BeginForm("CourseList", "Home", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    <article class="personlist">
+        <div class="TopBar">
+            @Html.TextBoxFor(model => model.SearchField, new { @class = "search", @placeholder = "Søg..." })
+            <button class="btn SubmitSearch" type="submit" name="cmd" value="Search"><i class="fa fa-search"></i></button>
+            <p>Resultater pr. side:</p>
+            @Html.DropDownList("Take", Model.TakeList as SelectList, new { @class = "select", @onchange = "this.form.submit()" })
+
+            <div class="TopBarNav">
+                <button type="submit" name="cmd" value="Previous"><i class="fa fa-angle-left"></i></button>
+                <p>Side @Model.PageThis ud af @Model.PageAll</p>
+                <button type="submit" name="cmd" value="Next"><i class="fa fa-angle-right"></i></button>
+            </div>
+            <h6 class="numberOfUsers">Antal kurser i alt: @Model.RecordCount</h6>
+        </div>
+        <table>
+            <thead>
+            <tr class="tableHeadline">
+                <th></th>
+                <th>Kursusnavn</th>
+                <th>Tilmeldte elever</th>
+                <th>Teacher</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+            @foreach (var course in Model.ListGeneric)
+            {
+                @*<tr onclick="location.href = '@(Url.Action("CourseSite", "Home", new  {id=course.Id } ))'">*@
+                <tr class="personField" onclick="location.href = '@(Url.Action("CourseSite", "Home", new  {id=course.Id } ))'">
+                    <td>
+                        <a href="@Url.Action("CourseSite", "Home", new  {id=course.Id } )">
+                            <img class="userThumb" src="~/Images/Courses/@ImageHelper.GetImageUrl("Courses", ""+ course.Image,"coursePlaceholder.png")" alt="userThumb "/>
+                        </a>
+                    </td>
+                      <td>@string.Format(course.Name) </td>
+                    <td>@(course.Student.Count) </td>
+                    <td>@string.Format("{0} {1}", course.Teacher.FirstName, course.Teacher.LastName)</td>
+                    <td>@(course.Active ? "active" : "deactivated")</td>
+                </tr>
+            }
+        </table>
+    </article>
+}}

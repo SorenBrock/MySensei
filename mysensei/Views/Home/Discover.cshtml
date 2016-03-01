@@ -1,0 +1,51 @@
+﻿@model mysensei.Models.ViewModels.ViewModelDiscover
+
+@{
+    ViewBag.Title = "Discover";
+    var isLoggedIn = User.Identity.IsAuthenticated;
+
+}
+<section class="gridRow discover">
+    <ul class="gridCol-12">
+        @if (isLoggedIn) {
+        <li class="btnMenu" data-modal="modal-course" href="">Mine kurser</li>
+        }  else {
+        <li>@Html.ActionLink("Mine kurser", "/Login")</li>
+        }
+        <li class="btnMenu btnActive" data-modal="modal-new" href="">Nyeste</li>
+        <li class="btnMenu" data-modal="modal-rated" href="">Højeste rating</li>
+    </ul>
+
+    <div class="gridRow courses courseHide" id="modal-rated">
+    
+            @if (Model.ListCoursesHighRating.Count() != 0)
+            {
+            foreach (var course in Model.ListCoursesHighRating.ToList())
+                {
+            @Html.Partial("PartialViews/_Course", course)
+                }
+            } 
+    </div>
+    <div class="gridRow courses" id="modal-new">
+        @foreach (var course in Model.ListCoursesNew.ToList())
+        {
+            @Html.Partial("PartialViews/_Course", course)
+        }
+    </div>
+    @if (isLoggedIn)
+    {
+        <div class="gridRow courses courseHide" id="modal-course">
+            @if (Model.ListCoursesPrivate.Count() != 0)
+            {
+                foreach (var course in Model.ListCoursesPrivate.ToList())
+                {
+                    @Html.Partial("PartialViews/_Course", course)
+                }
+            }
+            else
+            {
+                <h1>Du er ikke tilmeldt nogen kurser endnu...</h1>
+            }
+        </div>
+    }
+</section>

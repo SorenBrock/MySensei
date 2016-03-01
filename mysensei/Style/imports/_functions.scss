@@ -1,0 +1,4 @@
+@import '_variables.scss';
+@function getColumnPercent($varColAmount) {
+  @return  100% / $column-max * $varColAmount;
+}

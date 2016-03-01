@@ -1,0 +1,26 @@
+﻿@model mysensei.Models.Course
+@{
+    var course = Model;
+    var courseRatingSum = course.Rating.ToList().Sum(x => x.Stars);
+    var courseRatingCount = course.Rating.Count;
+    var starCount = courseRatingCount != 0 ? courseRatingSum / courseRatingCount : 0;
+
+}
+<a href="@Url.Action("/Course", new {id=course.Id})" class="gridCol4 courseContainer">
+
+    <div class="coursePicture">
+        <img class="courseThumb" src="~/Images/Courses/@ImageHelper.GetImageUrl("Courses",course.Image,"course_thumb.jpg")" alt="Course Thumb" />
+        <img class="userThumb" src="~/Images/Persons/@ImageHelper.GetImageUrl("Persons",course.Teacher.Image,"user_thumb.png")" alt="personImage" />
+    </div>
+    <div class="courseMeta">    
+        <h6>@course.Name</h6>
+        @*<p>@string.Format("[Underviser: {0} {1}]", course.Teacher.FirstName, course.Teacher.LastName)</p>*@
+
+        <div class="courseStars">
+            @for (var i = 0; i < starCount; i++)
+            {
+                <i class="fa fa-star"></i>
+            }
+        </div>
+    </div>
+</a>

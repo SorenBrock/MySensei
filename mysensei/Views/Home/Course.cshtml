@@ -1,0 +1,81 @@
+﻿@using System.Web.UI.WebControls
+@model mysensei.Models.Course
+
+@{
+    ViewBag.Title = "Kursus";
+    var isLoggedIn = User.Identity.IsAuthenticated;
+    var course = Model;
+    var personId = ViewBag.PersonId;
+    var isSensei = ViewBag.IsSensei;
+    bool isMessageSend = ViewBag.IsMessageSend == true;
+
+
+}
+@using (Html.BeginForm("Course", "Home", FormMethod.Post))
+{
+    <section class="gridRow discover course courseOverview">
+
+        <h1>@course.Name</h1>
+        <div class="gridRow courses">
+            @Html.Partial("PartialViews/_Course", course)
+        </div>
+
+        <div class="gridRow courseDescription">
+            
+            <p><span class="courseHeadline">Beskrivelse: </span>@course.Description</p>
+            <p>
+                <span class="courseHeadline">Sensei:</span> @string.Format("{0} {1}", course.Teacher.FirstName, course.Teacher.LastName)
+            </p>
+            @*   <p>@course.Teacher.Description</p>*@
+            <p><span class="courseHeadline">Område:</span> @ViewBag.LocationGroupName</p>
+        </div>
+
+        @if (isLoggedIn)
+        {
+            if (isSensei)
+            {
+                <table class="coursesTable">
+                    <thead>
+                        <tr>
+                            <th class="coursesHeadline">Tilmeldte</th>
+
+                        </tr>
+                    </thead>
+                    @foreach (var person in course.Student.ToList())
+                    {
+                        <tr class="coursesContent">
+                            <td>@string.Format("{0} {1}", person.FirstName, person.LastName)</td>
+
+                        </tr>
+                    }
+                </table>
+
+                <a onclick=" return confirm('Er du sikker på, at du vil slette dette kursus?'); " class="userSubmit" href="@Url.Action("Course", new {cmd = "delete", id = course.Id})">Slet Kursus</a>
+                 
+            }
+            else //isSensei
+            {
+
+                if (course.Student.Any(x => x.Id == personId))
+                {
+                    <a class="userSubmit assign" href="@Url.Action("Course", new {cmd = "unassign", id = course.Id})">Afmeld</a>
+                }
+                else
+                {
+                    <a class="userSubmit assign" href="@Url.Action("Course", new {cmd = "assign", id = course.Id})">Tilmeld</a>
+                }
+                @Html.TextArea("message", new { PlaceHolder = "Skriv en besked til Sensei", required = "required" })
+                        <button class="userSubmit" type="submit">Send</button>
+
+            }
+
+        }
+        else //isLoggedIn
+        {
+            <p class="loginMessage">
+                <a href="@Url.Action("Login")">Log ind</a> for at tilmelde dig dette kursus.
+            </p>
+        }
+
+    </section>
+}

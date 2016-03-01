@@ -1,0 +1,33 @@
+﻿@{
+    ViewBag.Title = "About";
+    var isLoggedIn = User.Identity.IsAuthenticated;
+}
+<section class="about">
+    <h1>Om My Sensei</h1>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Nullam quis risus eget urna mollis ornare vel eu leo.</p>
+    <div class="gridRow">
+        <div class="gridCol-6">
+            <h4>Nyhedsbrev</h4>
+            <p>Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed odio dui.</p>
+            <a class="btn" href="#">Tilmeld</a>
+        </div>
+
+        <div class="gridCol-6">
+            <h4>FAQ</h4>
+            <p>Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed odio dui.</p>
+            <a class="btn" href="#">Se FAQ</a>
+        </div>
+
+        <div class="gridCol-12">
+            <h4>Kontakt</h4>
+            <p><a href="mailto:email@email.dk"></a>email@email.dk</p>
+            <p>Aarhusvej 10, 8000 Aarhus</p>
+            <p><a href="tel:+4526149965"></a>25467981</p>
+        </div>
+    </div>
+</section>
+@*<p>[side: About]</p>
+<p>[@(isLoggedIn ? "Logged IN" : "Logged OUT")]</p>*@
+
+
+

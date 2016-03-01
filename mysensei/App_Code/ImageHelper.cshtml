@@ -1,0 +1,7 @@
+﻿@helper GetImageUrl(string path, string image, string placeholder)
+{
+var stringUrl = (!string.IsNullOrEmpty(image) &&
+        File.Exists(Server.MapPath(string.Format("~/Images/{0}/{1}", path, image))))
+        ? image : placeholder;
+    @stringUrl
+}

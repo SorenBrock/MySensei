@@ -1,0 +1,94 @@
+﻿@if (!User.Identity.IsAuthenticated) { Response.Redirect("/Admin/Home/UserLogin"); }
+@using mysensei.Models
+@model mysensei.Models.LocationGroup
+@{
+    ViewBag.Title = "Postnr Skema";
+
+
+}
+<article class="tagSite">
+    @using (Html.BeginForm("LocationGroupSite", "Home", FormMethod.Post, new { @class = "form-horizontal" }))
+    {
+        <section class="tag">
+            <div class="tagHeadline">
+                <i class="fa fa-map-marker bigIcon"></i>
+                <h4>@Model.Name</h4>
+            </div>
+
+
+            @if (ViewBag.edit == true)
+                {
+                <div class="editTag">
+                    <table class="personInfo">
+                        <tbody class="personInfo">
+                            <tr>
+                                <td class="personMeta">
+                                    Navn:
+                                </td>
+                                <td>@Html.TextBoxFor(x => x.Name, new { @class = "editPerson" })</td>
+                                <td>@Html.ValidationMessageFor(x => x.Name)</td>
+                            </tr>
+                            <tr>
+                                <td class="personMeta">
+                                    Postnr start:
+                                </td>
+                                <td>@Html.TextBoxFor(x => x.ZipcodeStart, new { @class = "editPerson", @type = "number" })</td>
+                                <td>@Html.ValidationMessageFor(x => x.ZipcodeStart)</td>
+                            </tr>
+
+                            <tr>
+                                <td class="personMeta">
+                                    Postnr slut:
+                                </td>
+                                <td>@Html.TextBoxFor(x => x.ZipcodeEnd, new { @class = "editPerson", @type = "number" })</td>
+                                <td>@Html.ValidationMessageFor(x => x.ZipcodeEnd)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <button class="btn submitTag" type="submit" name="command" value="cancel">Annuller</button>
+                    <button class="btn submitTag" type="submit" name="command" value="save">Gem</button>
+                </div>
+            }
+            else
+            {
+                <div class="editTag">
+                    <table class="personInfo">
+                        <tbody class="personInfo">
+                            <tr>
+                                <td class="personMeta">
+                                    Navn:
+                                </td>
+                                <td>@Html.DisplayFor(x => x.Name, new { @class = "" })</td>
+                            </tr>
+                            <tr>
+                                <td class="personMeta">
+                                    Postnr start:
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(x => x.ZipcodeStart, new { @class = "" })
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="personMeta">
+                                    Postnr slut:
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(x => x.ZipcodeEnd, new { @class = "" })
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button class="btn submitTag" type="submit" name="command" value="back">Tilbage</button>
+                    <button class="btn submitTag" type="submit" name="command" value="edit">Rediger</button>
+                    <button class="btn submitTag" type="submit" name="command" value="delete" onclick=" return confirm('Er du sikker?'); ">Slet</button>
+                </div>
+               
+            }
+
+        </section>
+    }
+
+
+</article>

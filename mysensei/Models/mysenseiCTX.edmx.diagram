@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="a4526627eb8a41758d650ad4047cb1f7" Name="Diagram1" ZoomLevel="92" >
+        <EntityTypeShape EntityType="mysenseiCTX.Person" Width="1.5" PointX="2.75" PointY="0.5" />
+        <EntityTypeShape EntityType="mysenseiCTX.Course" Width="1.5" PointX="5" PointY="4" />
+        <EntityTypeShape EntityType="mysenseiCTX.Tag" Width="1.5" PointX="7.125" PointY="4" />
+        <AssociationConnector Association="mysenseiCTX.PersonCourse1" />
+        <AssociationConnector Association="mysenseiCTX.PersonCourse" ></AssociationConnector>
+        <AssociationConnector Association="mysenseiCTX.CourseTag" />
+        <EntityTypeShape EntityType="mysenseiCTX.LocationCity" Width="1.5" PointX="7.125" PointY="0.625" />
+        <EntityTypeShape EntityType="mysenseiCTX.LocationGroup" Width="1.5" PointX="9.125" PointY="0.625" />
+        <AssociationConnector Association="mysenseiCTX.LocationCityPerson" />
+        <EntityTypeShape EntityType="mysenseiCTX.Rating" Width="1.5" PointX="5" PointY="1.25" />
+        <AssociationConnector Association="mysenseiCTX.PersonRating" />
+        <AssociationConnector Association="mysenseiCTX.CourseRating" />
+        <EntityTypeShape EntityType="mysenseiCTX.Administrator" Width="1.5" PointX="9.125" PointY="2.75" />
+        <EntityTypeShape EntityType="mysenseiCTX.TagGroup" Width="1.5" PointX="7.125" PointY="6.25" />
+        <AssociationConnector Association="mysenseiCTX.TagTagGroup" />
+        <EntityTypeShape EntityType="mysenseiCTX.Chat" Width="1.5" PointX="0.5" PointY="4.625" />
+        <AssociationConnector ManuallyRouted="false" Association="mysenseiCTX.PersonChat">
+        </AssociationConnector>
+        <EntityTypeShape EntityType="mysenseiCTX.ChatRoom" Width="1.5" PointX="2.75" PointY="6.125" />
+        <AssociationConnector Association="mysenseiCTX.ChatRoomCourse" />
+        <AssociationConnector Association="mysenseiCTX.PersonChatRoom" />
+        <AssociationConnector Association="mysenseiCTX.PersonChatRoom1" />
+        <AssociationConnector Association="mysenseiCTX.ChatRoomChat" />
+        <EntityTypeShape EntityType="mysenseiCTX.LogChatRead" Width="1.5" PointX="0.5" PointY="1.75" />
+        <AssociationConnector Association="mysenseiCTX.PersonLogChatRead" />
+        <AssociationConnector Association="mysenseiCTX.ChatLogChatRead" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

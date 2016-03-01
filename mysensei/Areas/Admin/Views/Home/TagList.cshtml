@@ -1,0 +1,43 @@
+﻿@if (!User.Identity.IsAuthenticated) { Response.Redirect("/Admin/Home/UserLogin"); }
+@model mysensei.Areas.Admin.Models.ViewModels.ShowList<mysensei.Models.Tag>
+@{
+    ViewBag.Title = "Tag Oversigt";
+}
+@using (Html.BeginForm("TagList", "Home", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    <article class="personlist">
+        <div class="TopBar">
+            @Html.TextBoxFor(model => model.SearchField, new { @class = "search", @placeholder = "Søg..." })
+            <button class="btn SubmitSearch" type="submit" name="cmd" value="Search"><i class="fa fa-search"></i></button>
+            <p>Resultater pr. side:</p>
+            @Html.DropDownList("Take", Model.TakeList as SelectList, new { @class = "select", @onchange = "this.form.submit()" })
+            <button class="btn newTag" type="submit" name="cmd" value="Create">Nyt Tag</button>
+            <div class="TopBarNav">
+                <button type="submit" name="cmd" value="Previous"><i class="fa fa-angle-left"></i></button>
+                <p>Side @Model.PageThis ud af @Model.PageAll</p>
+                <button type="submit" name="cmd" value="Next"><i class="fa fa-angle-right"></i></button>
+            </div>
+            <h6 class="numberOfUsers">Antal tag i alt: @Model.RecordCount</h6>
+        </div>
+        <table>
+            <thead>
+                <tr class="tableHeadline">
+                    <th>Tag</th>
+                    <th>Kategorier</th>
+                </tr>
+            </thead>
+            @foreach (var tag in Model.ListGeneric)
+            {
+                <tr class="personField" onclick="location.href = '@(Url.Action("TagSite", "Home", new  {id=tag.Id } ))'">
+                    <td>@tag.Name</td>
+                    <td>
+                        @foreach (var tagGroup in tag.TagGroup.ToList())
+                    {
+                            <span class="categories">@string.Format("{0} ", tagGroup.Name)</span>
+                        }
+                    </td>
+                </tr>
+            }
+        </table>
+    </article>
+}

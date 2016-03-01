@@ -1,0 +1,54 @@
+﻿@model mysensei.Areas.Admin.Models.UserLoginModel
+@{
+
+    ViewBag.Title = "Login";
+
+    // JUST FOR FUN :) 
+    var IPAddress = Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
+    if (string.IsNullOrEmpty(IPAddress))
+    {
+        IPAddress = string.Format("(ip: {0})", Request.ServerVariables["REMOTE_ADDR"]);
+    }
+
+}
+@if (User.Identity.IsAuthenticated)
+{
+    <article class="UserLogin">
+        <h1>VELKOMMEN TIL MYSENSEI BACKEND!</h1>
+    </article>
+}
+else
+{   <article class="UserLogin">
+        <h1>LOGIN</h1>
+        @using (Html.BeginForm("UserLogin", "Home"))
+        {
+            <section class="UserLoginForm">
+                <div>
+                    <div class="error">
+                        @Html.ValidationMessageFor(model => model.UserName)
+                    </div>
+                    @Html.TextBoxFor(x => x.UserName, new { @class = "input", @placeholder = "Indtast brugernavn" })
+                </div>
+                <div>
+                    <div class="error">
+                        @Html.ValidationMessageFor(model => model.UserPassword)
+                    </div>
+                    @Html.TextBoxFor(x => x.UserPassword, new { @class = "input", @placeholder = "Indtast password", @type = "password" })
+                </div>
+                <div class="checkbox">
+                    @Html.CheckBoxFor(x => x.RememberMe)
+                    <label>
+                        Husk login
+                    </label>
+                </div>
+                <div>
+                    <button class="btn SubmitForm" type="submit">Log på</button>
+                </div>
+                @if (@TempData["Status"] != null) { 
+                <div class="alert">
+                    @TempData["Status"]
+                </div>}
+            </section>
+        }
+    </article>
+} 

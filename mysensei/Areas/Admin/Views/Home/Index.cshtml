@@ -1,0 +1,9 @@
+﻿@if (!User.Identity.IsAuthenticated) { Response.Redirect("/Admin/Home/UserLogin"); }
+@{
+    ViewBag.Title = "Home";
+}
+
+<article class="UserLogin">
+    <h1>VELKOMMEN TIL MYSENSEI BACKEND!</h1>
+</article>
+

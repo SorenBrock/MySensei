@@ -1,0 +1,994 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="mysenseiCTX.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="mysenseiCTXStoreContainer">
+    <EntitySet Name="PersonSet" EntityType="mysenseiCTX.Store.PersonSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CourseSet" EntityType="mysenseiCTX.Store.CourseSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TagSet" EntityType="mysenseiCTX.Store.TagSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="LocationCitySet" EntityType="mysenseiCTX.Store.LocationCitySet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="LocationGroupSet" EntityType="mysenseiCTX.Store.LocationGroupSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="RatingSet" EntityType="mysenseiCTX.Store.RatingSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="AdministratorSet" EntityType="mysenseiCTX.Store.AdministratorSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TagGroupSet" EntityType="mysenseiCTX.Store.TagGroupSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ChatSet" EntityType="mysenseiCTX.Store.ChatSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ChatRoomSet" EntityType="mysenseiCTX.Store.ChatRoomSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="LogChatReadSet" EntityType="mysenseiCTX.Store.LogChatReadSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PersonCourse" EntityType="mysenseiCTX.Store.PersonCourse" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CourseTag" EntityType="mysenseiCTX.Store.CourseTag" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TagTagGroup" EntityType="mysenseiCTX.Store.TagTagGroup" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PersonChatRoom" EntityType="mysenseiCTX.Store.PersonChatRoom" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="PersonCourse1" Association="mysenseiCTX.Store.PersonCourse1">
+      <End Role="Person" EntitySet="PersonSet" />
+      <End Role="Course" EntitySet="CourseSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PersonCourse_Person" Association="mysenseiCTX.Store.FK_PersonCourse_Person">
+      <End Role="Person" EntitySet="PersonSet" />
+      <End Role="PersonCourse" EntitySet="PersonCourse" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PersonCourse_Course" Association="mysenseiCTX.Store.FK_PersonCourse_Course">
+      <End Role="Course" EntitySet="CourseSet" />
+      <End Role="PersonCourse" EntitySet="PersonCourse" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CourseTag_Course" Association="mysenseiCTX.Store.FK_CourseTag_Course">
+      <End Role="Course" EntitySet="CourseSet" />
+      <End Role="CourseTag" EntitySet="CourseTag" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CourseTag_Tag" Association="mysenseiCTX.Store.FK_CourseTag_Tag">
+      <End Role="Tag" EntitySet="TagSet" />
+      <End Role="CourseTag" EntitySet="CourseTag" />
+    </AssociationSet>
+    <AssociationSet Name="LocationCityPerson" Association="mysenseiCTX.Store.LocationCityPerson">
+      <End Role="LocationCity" EntitySet="LocationCitySet" />
+      <End Role="Person" EntitySet="PersonSet" />
+    </AssociationSet>
+    <AssociationSet Name="PersonRating" Association="mysenseiCTX.Store.PersonRating">
+      <End Role="Person" EntitySet="PersonSet" />
+      <End Role="Rating" EntitySet="RatingSet" />
+    </AssociationSet>
+    <AssociationSet Name="CourseRating" Association="mysenseiCTX.Store.CourseRating">
+      <End Role="Course" EntitySet="CourseSet" />
+      <End Role="Rating" EntitySet="RatingSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TagTagGroup_Tag" Association="mysenseiCTX.Store.FK_TagTagGroup_Tag">
+      <End Role="Tag" EntitySet="TagSet" />
+      <End Role="TagTagGroup" EntitySet="TagTagGroup" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TagTagGroup_TagGroup" Association="mysenseiCTX.Store.FK_TagTagGroup_TagGroup">
+      <End Role="TagGroup" EntitySet="TagGroupSet" />
+      <End Role="TagTagGroup" EntitySet="TagTagGroup" />
+    </AssociationSet>
+    <AssociationSet Name="PersonChat" Association="mysenseiCTX.Store.PersonChat">
+      <End Role="Person" EntitySet="PersonSet" />
+      <End Role="Chat" EntitySet="ChatSet" />
+    </AssociationSet>
+    <AssociationSet Name="ChatRoomCourse" Association="mysenseiCTX.Store.ChatRoomCourse">
+      <End Role="ChatRoom" EntitySet="ChatRoomSet" />
+      <End Role="Course" EntitySet="CourseSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PersonChatRoom_Person" Association="mysenseiCTX.Store.FK_PersonChatRoom_Person">
+      <End Role="Person" EntitySet="PersonSet" />
+      <End Role="PersonChatRoom" EntitySet="PersonChatRoom" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PersonChatRoom_ChatRoom" Association="mysenseiCTX.Store.FK_PersonChatRoom_ChatRoom">
+      <End Role="ChatRoom" EntitySet="ChatRoomSet" />
+      <End Role="PersonChatRoom" EntitySet="PersonChatRoom" />
+    </AssociationSet>
+    <AssociationSet Name="PersonChatRoom1" Association="mysenseiCTX.Store.PersonChatRoom1">
+      <End Role="Person" EntitySet="PersonSet" />
+      <End Role="ChatRoom" EntitySet="ChatRoomSet" />
+    </AssociationSet>
+    <AssociationSet Name="ChatRoomChat" Association="mysenseiCTX.Store.ChatRoomChat">
+      <End Role="ChatRoom" EntitySet="ChatRoomSet" />
+      <End Role="Chat" EntitySet="ChatSet" />
+    </AssociationSet>
+    <AssociationSet Name="PersonLogChatRead" Association="mysenseiCTX.Store.PersonLogChatRead">
+      <End Role="Person" EntitySet="PersonSet" />
+      <End Role="LogChatRead" EntitySet="LogChatReadSet" />
+    </AssociationSet>
+    <AssociationSet Name="ChatLogChatRead" Association="mysenseiCTX.Store.ChatLogChatRead">
+      <End Role="Chat" EntitySet="ChatSet" />
+      <End Role="LogChatRead" EntitySet="LogChatReadSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="PersonSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FirstName" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="LastName" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Address" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Zipcode" Type="smallint" Nullable="true" />
+    <Property Name="Phone" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Username" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Password" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Image" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Active" Type="bit" Nullable="false" DefaultValue="true" />
+    <Property Name="DateCreated" Type="datetime" Nullable="true" />
+    <Property Name="LocationCity_Id" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="CourseSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="PersonId" Type="int" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Image" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Active" Type="bit" Nullable="false" DefaultValue="true" />
+    <Property Name="DateCreated" Type="datetime" Nullable="true" />
+  </EntityType>
+  <EntityType Name="TagSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LocationCitySet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ZipcodeStart" Type="smallint" Nullable="true" />
+    <Property Name="ZipcodeEnd" Type="smallint" Nullable="true" />
+    <Property Name="City" Type="nvarchar(max)" Nullable="true" />
+  </EntityType>
+  <EntityType Name="LocationGroupSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ZipcodeStart" Type="smallint" Nullable="true" />
+    <Property Name="ZipcodeEnd" Type="smallint" Nullable="true" />
+  </EntityType>
+  <EntityType Name="RatingSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Stars" Type="smallint" Nullable="true" />
+    <Property Name="Info" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="CourseId" Type="int" Nullable="false" />
+    <Property Name="Person_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AdministratorSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="UserName" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Password" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Image" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Active" Type="bit" Nullable="true" DefaultValue="true" />
+    <Property Name="DateCreated" Type="datetime" Nullable="true" />
+  </EntityType>
+  <EntityType Name="TagGroupSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="true" />
+  </EntityType>
+  <EntityType Name="ChatSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Message" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="PersonId" Type="int" Nullable="false" />
+    <Property Name="ChatRoomId" Type="int" Nullable="false" />
+    <Property Name="DateCreated" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ChatRoomSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="PersonId" Type="int" Nullable="false" />
+    <Property Name="Active" Type="bit" Nullable="false" DefaultValue="true" />
+    <Property Name="DateCreated" Type="datetime" Nullable="false" />
+    <Property Name="Course_Id" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="LogChatReadSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DateCreated" Type="datetime" Nullable="false" />
+    <Property Name="PersonId" Type="int" Nullable="false" />
+    <Property Name="ChatId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PersonCourse">
+    <Key>
+      <PropertyRef Name="Student_Id" />
+      <PropertyRef Name="StudentCourse_Id" />
+    </Key>
+    <Property Name="Student_Id" Type="int" Nullable="false" />
+    <Property Name="StudentCourse_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CourseTag">
+    <Key>
+      <PropertyRef Name="Course_Id" />
+      <PropertyRef Name="Tag_Id" />
+    </Key>
+    <Property Name="Course_Id" Type="int" Nullable="false" />
+    <Property Name="Tag_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TagTagGroup">
+    <Key>
+      <PropertyRef Name="Tag_Id" />
+      <PropertyRef Name="TagGroup_Id" />
+    </Key>
+    <Property Name="Tag_Id" Type="int" Nullable="false" />
+    <Property Name="TagGroup_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PersonChatRoom">
+    <Key>
+      <PropertyRef Name="Person_Id" />
+      <PropertyRef Name="ChatRoom_Id" />
+    </Key>
+    <Property Name="Person_Id" Type="int" Nullable="false" />
+    <Property Name="ChatRoom_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="PersonCourse1">
+    <End Role="Person" Type="mysenseiCTX.Store.PersonSet" Multiplicity="1" />
+    <End Role="Course" Type="mysenseiCTX.Store.CourseSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Course">
+        <PropertyRef Name="PersonId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="LocationCityPerson">
+    <End Role="LocationCity" Type="mysenseiCTX.Store.LocationCitySet" Multiplicity="0..1" />
+    <End Role="Person" Type="mysenseiCTX.Store.PersonSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LocationCity">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Person">
+        <PropertyRef Name="LocationCity_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PersonRating">
+    <End Role="Person" Type="mysenseiCTX.Store.PersonSet" Multiplicity="1" />
+    <End Role="Rating" Type="mysenseiCTX.Store.RatingSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Rating">
+        <PropertyRef Name="Person_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CourseRating">
+    <End Role="Course" Type="mysenseiCTX.Store.CourseSet" Multiplicity="1" />
+    <End Role="Rating" Type="mysenseiCTX.Store.RatingSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Course">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Rating">
+        <PropertyRef Name="CourseId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PersonChat">
+    <End Role="Person" Type="mysenseiCTX.Store.PersonSet" Multiplicity="1" />
+    <End Role="Chat" Type="mysenseiCTX.Store.ChatSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Chat">
+        <PropertyRef Name="PersonId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ChatRoomCourse">
+    <End Role="ChatRoom" Type="mysenseiCTX.Store.ChatRoomSet" Multiplicity="*" />
+    <End Role="Course" Type="mysenseiCTX.Store.CourseSet" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Course">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ChatRoom">
+        <PropertyRef Name="Course_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PersonChatRoom1">
+    <End Role="Person" Type="mysenseiCTX.Store.PersonSet" Multiplicity="1" />
+    <End Role="ChatRoom" Type="mysenseiCTX.Store.ChatRoomSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ChatRoom">
+        <PropertyRef Name="PersonId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ChatRoomChat">
+    <End Role="ChatRoom" Type="mysenseiCTX.Store.ChatRoomSet" Multiplicity="1" />
+    <End Role="Chat" Type="mysenseiCTX.Store.ChatSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ChatRoom">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Chat">
+        <PropertyRef Name="ChatRoomId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PersonLogChatRead">
+    <End Role="Person" Type="mysenseiCTX.Store.PersonSet" Multiplicity="1" />
+    <End Role="LogChatRead" Type="mysenseiCTX.Store.LogChatReadSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="LogChatRead">
+        <PropertyRef Name="PersonId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ChatLogChatRead">
+    <End Role="Chat" Type="mysenseiCTX.Store.ChatSet" Multiplicity="1" />
+    <End Role="LogChatRead" Type="mysenseiCTX.Store.LogChatReadSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Chat">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="LogChatRead">
+        <PropertyRef Name="ChatId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PersonCourse_Person">
+    <End Role="Person" Type="mysenseiCTX.Store.PersonSet" Multiplicity="1" />
+    <End Role="PersonCourse" Type="mysenseiCTX.Store.PersonCourse" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PersonCourse">
+        <PropertyRef Name="Student_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PersonCourse_Course">
+    <End Role="PersonCourse" Type="mysenseiCTX.Store.PersonCourse" Multiplicity="*" />
+    <End Role="Course" Type="mysenseiCTX.Store.CourseSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Course">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PersonCourse">
+        <PropertyRef Name="StudentCourse_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CourseTag_Course">
+    <End Role="Course" Type="mysenseiCTX.Store.CourseSet" Multiplicity="1" />
+    <End Role="CourseTag" Type="mysenseiCTX.Store.CourseTag" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Course">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CourseTag">
+        <PropertyRef Name="Course_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CourseTag_Tag">
+    <End Role="CourseTag" Type="mysenseiCTX.Store.CourseTag" Multiplicity="*" />
+    <End Role="Tag" Type="mysenseiCTX.Store.TagSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Tag">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CourseTag">
+        <PropertyRef Name="Tag_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TagTagGroup_Tag">
+    <End Role="Tag" Type="mysenseiCTX.Store.TagSet" Multiplicity="1" />
+    <End Role="TagTagGroup" Type="mysenseiCTX.Store.TagTagGroup" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tag">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TagTagGroup">
+        <PropertyRef Name="Tag_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TagTagGroup_TagGroup">
+    <End Role="TagTagGroup" Type="mysenseiCTX.Store.TagTagGroup" Multiplicity="*" />
+    <End Role="TagGroup" Type="mysenseiCTX.Store.TagGroupSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="TagGroup">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TagTagGroup">
+        <PropertyRef Name="TagGroup_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PersonChatRoom_Person">
+    <End Role="Person" Type="mysenseiCTX.Store.PersonSet" Multiplicity="1" />
+    <End Role="PersonChatRoom" Type="mysenseiCTX.Store.PersonChatRoom" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PersonChatRoom">
+        <PropertyRef Name="Person_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PersonChatRoom_ChatRoom">
+    <End Role="PersonChatRoom" Type="mysenseiCTX.Store.PersonChatRoom" Multiplicity="*" />
+    <End Role="ChatRoom" Type="mysenseiCTX.Store.ChatRoomSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="ChatRoom">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PersonChatRoom">
+        <PropertyRef Name="ChatRoom_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="mysenseiCTX" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="mysenseiCTXContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="PersonSet" EntityType="mysenseiCTX.Person" />
+          <EntitySet Name="CourseSet" EntityType="mysenseiCTX.Course" />
+          <EntitySet Name="TagSet" EntityType="mysenseiCTX.Tag" />
+          <AssociationSet Name="PersonCourse1" Association="mysenseiCTX.PersonCourse1">
+            <End EntitySet="PersonSet" Role="Person" />
+            <End EntitySet="CourseSet" Role="Course" />
+          </AssociationSet>
+          <AssociationSet Name="PersonCourse" Association="mysenseiCTX.PersonCourse">
+            <End Role="Person" EntitySet="PersonSet" />
+            <End Role="Course" EntitySet="CourseSet" />
+          </AssociationSet>
+          <AssociationSet Name="CourseTag" Association="mysenseiCTX.CourseTag">
+            <End Role="Course" EntitySet="CourseSet" />
+            <End Role="Tag" EntitySet="TagSet" />
+          </AssociationSet>
+          <EntitySet Name="LocationCitySet" EntityType="mysenseiCTX.LocationCity" />
+          <EntitySet Name="LocationGroupSet" EntityType="mysenseiCTX.LocationGroup" />
+          <AssociationSet Name="LocationCityPerson" Association="mysenseiCTX.LocationCityPerson">
+            <End EntitySet="LocationCitySet" Role="LocationCity" />
+            <End EntitySet="PersonSet" Role="Person" />
+          </AssociationSet>
+          <EntitySet Name="RatingSet" EntityType="mysenseiCTX.Rating" />
+          <AssociationSet Name="PersonRating" Association="mysenseiCTX.PersonRating">
+            <End Role="Person" EntitySet="PersonSet" />
+            <End Role="Rating" EntitySet="RatingSet" />
+          </AssociationSet>
+          <AssociationSet Name="CourseRating" Association="mysenseiCTX.CourseRating">
+            <End Role="Course" EntitySet="CourseSet" />
+            <End Role="Rating" EntitySet="RatingSet" />
+          </AssociationSet>
+          <EntitySet Name="AdministratorSet" EntityType="mysenseiCTX.Administrator" />
+          <EntitySet Name="TagGroupSet" EntityType="mysenseiCTX.TagGroup" />
+          <AssociationSet Name="TagTagGroup" Association="mysenseiCTX.TagTagGroup">
+            <End Role="Tag" EntitySet="TagSet" />
+            <End Role="TagGroup" EntitySet="TagGroupSet" />
+          </AssociationSet>
+          <EntitySet Name="ChatSet" EntityType="mysenseiCTX.Chat" />
+          <AssociationSet Name="PersonChat" Association="mysenseiCTX.PersonChat">
+            <End EntitySet="PersonSet" Role="Person" />
+            <End EntitySet="ChatSet" Role="Chat" />
+          </AssociationSet>
+          <EntitySet Name="ChatRoomSet" EntityType="mysenseiCTX.ChatRoom" />
+          <AssociationSet Name="ChatRoomCourse" Association="mysenseiCTX.ChatRoomCourse">
+            <End EntitySet="ChatRoomSet" Role="ChatRoom" />
+            <End EntitySet="CourseSet" Role="Course" />
+          </AssociationSet>
+          <AssociationSet Name="PersonChatRoom" Association="mysenseiCTX.PersonChatRoom">
+            <End Role="Person" EntitySet="PersonSet" />
+            <End Role="ChatRoom" EntitySet="ChatRoomSet" />
+          </AssociationSet>
+          <AssociationSet Name="PersonChatRoom1" Association="mysenseiCTX.PersonChatRoom1">
+            <End Role="Person" EntitySet="PersonSet" />
+            <End Role="ChatRoom" EntitySet="ChatRoomSet" />
+          </AssociationSet>
+          <AssociationSet Name="ChatRoomChat" Association="mysenseiCTX.ChatRoomChat">
+            <End Role="ChatRoom" EntitySet="ChatRoomSet" />
+            <End Role="Chat" EntitySet="ChatSet" />
+          </AssociationSet>
+          <EntitySet Name="LogChatReadSet" EntityType="mysenseiCTX.LogChatRead" />
+          <AssociationSet Name="PersonLogChatRead" Association="mysenseiCTX.PersonLogChatRead">
+            <End Role="Person" EntitySet="PersonSet" />
+            <End Role="LogChatRead" EntitySet="LogChatReadSet" />
+          </AssociationSet>
+          <AssociationSet Name="ChatLogChatRead" Association="mysenseiCTX.ChatLogChatRead">
+            <End Role="Chat" EntitySet="ChatSet" />
+            <End Role="LogChatRead" EntitySet="LogChatReadSet" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" Nullable="true" />
+          <Property Name="LastName" Type="String" Nullable="true" />
+          <NavigationProperty Name="TeacherCourse" Relationship="mysenseiCTX.PersonCourse1" FromRole="Person" ToRole="Course" />
+          <NavigationProperty Name="StudentCourse" Relationship="mysenseiCTX.PersonCourse" FromRole="Person" ToRole="Course" />
+          <Property Name="Address" Type="String" Nullable="true" />
+          <Property Name="Zipcode" Type="Int16" Nullable="true" />
+          <Property Name="Phone" Type="String" Nullable="true" />
+          <NavigationProperty Name="LocationCity" Relationship="mysenseiCTX.LocationCityPerson" FromRole="Person" ToRole="LocationCity" />
+          <NavigationProperty Name="Rating" Relationship="mysenseiCTX.PersonRating" FromRole="Person" ToRole="Rating" />
+          <Property Name="Email" Type="String" Nullable="true" />
+          <Property Name="Description" Type="String" Nullable="true" />
+          <Property Name="Username" Type="String" Nullable="true" />
+          <Property Name="Password" Type="String" Nullable="true" />
+          <Property Name="Image" Type="String" Nullable="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" DefaultValue="True" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="true" />
+          <NavigationProperty Name="Chat" Relationship="mysenseiCTX.PersonChat" FromRole="Person" ToRole="Chat" />
+          <NavigationProperty Name="ChatRoom" Relationship="mysenseiCTX.PersonChatRoom" FromRole="Person" ToRole="ChatRoom" />
+          <NavigationProperty Name="ChatRoom1" Relationship="mysenseiCTX.PersonChatRoom1" FromRole="Person" ToRole="ChatRoom" />
+          <NavigationProperty Name="LogChatRead" Relationship="mysenseiCTX.PersonLogChatRead" FromRole="Person" ToRole="LogChatRead" />
+        </EntityType>
+        <EntityType Name="Course">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="true" />
+          <NavigationProperty Name="Teacher" Relationship="mysenseiCTX.PersonCourse1" FromRole="Course" ToRole="Person" />
+          <Property Name="PersonId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Student" Relationship="mysenseiCTX.PersonCourse" FromRole="Course" ToRole="Person" />
+          <NavigationProperty Name="Tag" Relationship="mysenseiCTX.CourseTag" FromRole="Course" ToRole="Tag" />
+          <Property Name="Description" Type="String" Nullable="true" />
+          <NavigationProperty Name="Rating" Relationship="mysenseiCTX.CourseRating" FromRole="Course" ToRole="Rating" />
+          <Property Name="Image" Type="String" Nullable="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" DefaultValue="True" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="true" />
+          <NavigationProperty Name="ChatRoom" Relationship="mysenseiCTX.ChatRoomCourse" FromRole="Course" ToRole="ChatRoom" />
+        </EntityType>
+        <EntityType Name="Tag">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <NavigationProperty Name="Course" Relationship="mysenseiCTX.CourseTag" FromRole="Tag" ToRole="Course" />
+          <NavigationProperty Name="TagGroup" Relationship="mysenseiCTX.TagTagGroup" FromRole="Tag" ToRole="TagGroup" />
+        </EntityType>
+        <Association Name="PersonCourse1">
+          <End Type="mysenseiCTX.Person" Multiplicity="1" Role="Person" />
+          <End Type="mysenseiCTX.Course" Multiplicity="*" Role="Course" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Course">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PersonCourse">
+          <End Type="mysenseiCTX.Person" Role="Person" Multiplicity="*" />
+          <End Type="mysenseiCTX.Course" Role="Course" Multiplicity="*" />
+        </Association>
+        <Association Name="CourseTag">
+          <End Type="mysenseiCTX.Course" Role="Course" Multiplicity="*" />
+          <End Type="mysenseiCTX.Tag" Role="Tag" Multiplicity="*" />
+        </Association>
+        <EntityType Name="LocationCity">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ZipcodeStart" Type="Int16" Nullable="true" />
+          <Property Name="ZipcodeEnd" Type="Int16" Nullable="true" />
+          <Property Name="City" Type="String" Nullable="true" />
+          <NavigationProperty Name="Person" Relationship="mysenseiCTX.LocationCityPerson" FromRole="LocationCity" ToRole="Person" />
+        </EntityType>
+        <EntityType Name="LocationGroup">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="ZipcodeStart" Type="Int16" Nullable="true" />
+          <Property Name="ZipcodeEnd" Type="Int16" Nullable="true" />
+        </EntityType>
+        <Association Name="LocationCityPerson">
+          <End Type="mysenseiCTX.LocationCity" Multiplicity="0..1" Role="LocationCity" />
+          <End Type="mysenseiCTX.Person" Multiplicity="*" Role="Person" />
+        </Association>
+        <EntityType Name="Rating">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Stars" Type="Int16" Nullable="true" />
+          <Property Name="Info" Type="String" Nullable="true" />
+          <NavigationProperty Name="Person" Relationship="mysenseiCTX.PersonRating" FromRole="Rating" ToRole="Person" />
+          <NavigationProperty Name="Course" Relationship="mysenseiCTX.CourseRating" FromRole="Rating" ToRole="Course" />
+          <Property Name="CourseId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="PersonRating">
+          <End Type="mysenseiCTX.Person" Role="Person" Multiplicity="1" />
+          <End Type="mysenseiCTX.Rating" Role="Rating" Multiplicity="*" />
+        </Association>
+        <Association Name="CourseRating">
+          <End Type="mysenseiCTX.Course" Role="Course" Multiplicity="1" />
+          <End Type="mysenseiCTX.Rating" Role="Rating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Rating">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Administrator">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="true" />
+          <Property Name="UserName" Type="String" Nullable="true" />
+          <Property Name="Password" Type="String" Nullable="true" />
+          <Property Name="Image" Type="String" Nullable="true" />
+          <Property Name="Active" Type="Boolean" Nullable="true" DefaultValue="True" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="true" />
+        </EntityType>
+        <EntityType Name="TagGroup">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="true" />
+          <NavigationProperty Name="Tag" Relationship="mysenseiCTX.TagTagGroup" FromRole="TagGroup" ToRole="Tag" />
+        </EntityType>
+        <Association Name="TagTagGroup">
+          <End Type="mysenseiCTX.Tag" Role="Tag" Multiplicity="*" />
+          <End Type="mysenseiCTX.TagGroup" Role="TagGroup" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Chat">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Person" Relationship="mysenseiCTX.PersonChat" FromRole="Chat" ToRole="Person" />
+          <Property Name="Message" Type="String" Nullable="true" />
+          <Property Name="PersonId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ChatRoom" Relationship="mysenseiCTX.ChatRoomChat" FromRole="Chat" ToRole="ChatRoom" />
+          <Property Name="ChatRoomId" Type="Int32" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="LogChatRead" Relationship="mysenseiCTX.ChatLogChatRead" FromRole="Chat" ToRole="LogChatRead" />
+        </EntityType>
+        <Association Name="PersonChat">
+          <End Type="mysenseiCTX.Person" Multiplicity="1" Role="Person" />
+          <End Type="mysenseiCTX.Chat" Multiplicity="*" Role="Chat" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Chat">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ChatRoom">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="true" />
+          <NavigationProperty Name="Course" Relationship="mysenseiCTX.ChatRoomCourse" FromRole="ChatRoom" ToRole="Course" />
+          <NavigationProperty Name="Person" Relationship="mysenseiCTX.PersonChatRoom" FromRole="ChatRoom" ToRole="Person" />
+          <NavigationProperty Name="OwnerPerson" Relationship="mysenseiCTX.PersonChatRoom1" FromRole="ChatRoom" ToRole="Person" />
+          <Property Name="PersonId" Type="Int32" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" DefaultValue="true" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Chat" Relationship="mysenseiCTX.ChatRoomChat" FromRole="ChatRoom" ToRole="Chat" />
+        </EntityType>
+        <Association Name="ChatRoomCourse">
+          <End Type="mysenseiCTX.ChatRoom" Multiplicity="*" Role="ChatRoom" />
+          <End Type="mysenseiCTX.Course" Multiplicity="0..1" Role="Course" />
+        </Association>
+        <Association Name="PersonChatRoom">
+          <End Type="mysenseiCTX.Person" Role="Person" Multiplicity="*" />
+          <End Type="mysenseiCTX.ChatRoom" Role="ChatRoom" Multiplicity="*" />
+        </Association>
+        <Association Name="PersonChatRoom1">
+          <End Type="mysenseiCTX.Person" Role="Person" Multiplicity="1" />
+          <End Type="mysenseiCTX.ChatRoom" Role="ChatRoom" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ChatRoom">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ChatRoomChat">
+          <End Type="mysenseiCTX.ChatRoom" Role="ChatRoom" Multiplicity="1" />
+          <End Type="mysenseiCTX.Chat" Role="Chat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ChatRoom">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Chat">
+              <PropertyRef Name="ChatRoomId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="LogChatRead">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Person" Relationship="mysenseiCTX.PersonLogChatRead" FromRole="LogChatRead" ToRole="Person" />
+          <Property Name="PersonId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Chat" Relationship="mysenseiCTX.ChatLogChatRead" FromRole="LogChatRead" ToRole="Chat" />
+          <Property Name="ChatId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="PersonLogChatRead">
+          <End Type="mysenseiCTX.Person" Role="Person" Multiplicity="1" />
+          <End Type="mysenseiCTX.LogChatRead" Role="LogChatRead" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LogChatRead">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ChatLogChatRead">
+          <End Type="mysenseiCTX.Chat" Role="Chat" Multiplicity="1" />
+          <End Type="mysenseiCTX.LogChatRead" Role="LogChatRead" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Chat">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LogChatRead">
+              <PropertyRef Name="ChatId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="mysenseiCTXStoreContainer" CdmEntityContainer="mysenseiCTXContainer">
+    <EntitySetMapping Name="PersonSet">
+      <EntityTypeMapping TypeName="IsTypeOf(mysenseiCTX.Person)">
+        <MappingFragment StoreEntitySet="PersonSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Zipcode" ColumnName="Zipcode" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Image" ColumnName="Image" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CourseSet">
+      <EntityTypeMapping TypeName="IsTypeOf(mysenseiCTX.Course)">
+        <MappingFragment StoreEntitySet="CourseSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Image" ColumnName="Image" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TagSet">
+      <EntityTypeMapping TypeName="IsTypeOf(mysenseiCTX.Tag)">
+        <MappingFragment StoreEntitySet="TagSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LocationCitySet">
+      <EntityTypeMapping TypeName="IsTypeOf(mysenseiCTX.LocationCity)">
+        <MappingFragment StoreEntitySet="LocationCitySet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ZipcodeStart" ColumnName="ZipcodeStart" />
+          <ScalarProperty Name="ZipcodeEnd" ColumnName="ZipcodeEnd" />
+          <ScalarProperty Name="City" ColumnName="City" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LocationGroupSet">
+      <EntityTypeMapping TypeName="IsTypeOf(mysenseiCTX.LocationGroup)">
+        <MappingFragment StoreEntitySet="LocationGroupSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ZipcodeStart" ColumnName="ZipcodeStart" />
+          <ScalarProperty Name="ZipcodeEnd" ColumnName="ZipcodeEnd" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RatingSet">
+      <EntityTypeMapping TypeName="IsTypeOf(mysenseiCTX.Rating)">
+        <MappingFragment StoreEntitySet="RatingSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Stars" ColumnName="Stars" />
+          <ScalarProperty Name="Info" ColumnName="Info" />
+          <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AdministratorSet">
+      <EntityTypeMapping TypeName="IsTypeOf(mysenseiCTX.Administrator)">
+        <MappingFragment StoreEntitySet="AdministratorSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Image" ColumnName="Image" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TagGroupSet">
+      <EntityTypeMapping TypeName="IsTypeOf(mysenseiCTX.TagGroup)">
+        <MappingFragment StoreEntitySet="TagGroupSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChatSet">
+      <EntityTypeMapping TypeName="IsTypeOf(mysenseiCTX.Chat)">
+        <MappingFragment StoreEntitySet="ChatSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Message" ColumnName="Message" />
+          <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+          <ScalarProperty Name="ChatRoomId" ColumnName="ChatRoomId" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChatRoomSet">
+      <EntityTypeMapping TypeName="IsTypeOf(mysenseiCTX.ChatRoom)">
+        <MappingFragment StoreEntitySet="ChatRoomSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LogChatReadSet">
+      <EntityTypeMapping TypeName="IsTypeOf(mysenseiCTX.LogChatRead)">
+        <MappingFragment StoreEntitySet="LogChatReadSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+          <ScalarProperty Name="ChatId" ColumnName="ChatId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="PersonCourse" TypeName="mysenseiCTX.PersonCourse" StoreEntitySet="PersonCourse">
+      <EndProperty Name="Person">
+        <ScalarProperty Name="Id" ColumnName="Student_Id" />
+      </EndProperty>
+      <EndProperty Name="Course">
+        <ScalarProperty Name="Id" ColumnName="StudentCourse_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="CourseTag" TypeName="mysenseiCTX.CourseTag" StoreEntitySet="CourseTag">
+      <EndProperty Name="Course">
+        <ScalarProperty Name="Id" ColumnName="Course_Id" />
+      </EndProperty>
+      <EndProperty Name="Tag">
+        <ScalarProperty Name="Id" ColumnName="Tag_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="LocationCityPerson" TypeName="mysenseiCTX.LocationCityPerson" StoreEntitySet="PersonSet">
+      <EndProperty Name="LocationCity">
+        <ScalarProperty Name="Id" ColumnName="LocationCity_Id" />
+      </EndProperty>
+      <EndProperty Name="Person">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="LocationCity_Id" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="PersonRating" TypeName="mysenseiCTX.PersonRating" StoreEntitySet="RatingSet">
+      <EndProperty Name="Person">
+        <ScalarProperty Name="Id" ColumnName="Person_Id" />
+      </EndProperty>
+      <EndProperty Name="Rating">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="TagTagGroup" TypeName="mysenseiCTX.TagTagGroup" StoreEntitySet="TagTagGroup">
+      <EndProperty Name="Tag">
+        <ScalarProperty Name="Id" ColumnName="Tag_Id" />
+      </EndProperty>
+      <EndProperty Name="TagGroup">
+        <ScalarProperty Name="Id" ColumnName="TagGroup_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ChatRoomCourse" TypeName="mysenseiCTX.ChatRoomCourse" StoreEntitySet="ChatRoomSet">
+      <EndProperty Name="Course">
+        <ScalarProperty Name="Id" ColumnName="Course_Id" />
+      </EndProperty>
+      <EndProperty Name="ChatRoom">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="Course_Id" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="PersonChatRoom" TypeName="mysenseiCTX.PersonChatRoom" StoreEntitySet="PersonChatRoom">
+      <EndProperty Name="Person">
+        <ScalarProperty Name="Id" ColumnName="Person_Id" />
+      </EndProperty>
+      <EndProperty Name="ChatRoom">
+        <ScalarProperty Name="Id" ColumnName="ChatRoom_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
